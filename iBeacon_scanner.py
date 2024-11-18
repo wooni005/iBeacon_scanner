@@ -11,7 +11,8 @@ def parse_ibeacon(advertisement_data):
             uuid = data[2:18].hex()
             major, minor = struct.unpack('>HH', data[18:22])
             tx_power = struct.unpack('>b', data[22:23])[0]
-            return uuid, major, minor, tx_power
+            rssi = advertisement_data.rssi  # Received Signal Strength Indicator (RSSI)
+            return uuid, major, minor, tx_power, rssi
     return None
 
 async def scan_ibeacons():
@@ -28,14 +29,14 @@ async def detection_callback(device, advertisement_data):
     if device.address and advertisement_data:
         ibeacon_data = parse_ibeacon(advertisement_data)
         if ibeacon_data:
-            uuid, major, minor, tx_power = ibeacon_data
+            uuid, major, minor, tx_power, rssi = ibeacon_data
             print("iBeacon Found!", end=' ')
             print(f"Device: {device.address}", end=' ')
             print(f"UUID: {uuid}", end=' ')
             print(f"Major: {major}", end=' ')
             print(f"Minor: {minor}", end=' ')
             print(f"TxPower: {tx_power}", end=' ')
-            print("RSSI:", device.rssi)
+            print("RSSI:", rssi)
 
 if __name__ == "__main__":
     asyncio.run(scan_ibeacons())
