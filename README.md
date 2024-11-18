@@ -9,7 +9,7 @@ $ pip3 install bleak
 
 # Running the scanner
 
-```bash
+```log
 $ python3 iBeacon_scanner.py
 Scanning for iBeacons...
 iBeacon Found! Device: 18:57:E6:1F:EE:7F UUID: 18ee1516016b4becad96bcb96d166e97 Major: 0 Minor: 0 TxPower: -56 RSSI: -58
